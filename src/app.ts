@@ -19,8 +19,18 @@ class App {
     }
 
     private database (): void {
-      mongoose.connect('mongodb://localhost:27017/justlist',
-        { useNewUrlParser: true })
+      mongoose.connect('mongodb://mongo:27017/justlist',
+        {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          useCreateIndex: true
+        })
+        .then(result => {
+          console.log('MongoDB Conectado')
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
 
     private routes ():void {
