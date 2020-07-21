@@ -15,6 +15,7 @@ jobs:
           name: Install npm wee
           command: yarn install
       - run: yarn test
+      - run: curl -X POST 'https://hub.docker.com/api/build/v1/source/10e2f1e5-ca19-4c03-91f2-98e230375de5/trigger/b88f2ddc-c4a5-4dc3-9776-0cd5e81b7daa/call/'
 #  test:
 #    docker:
 #      - image: circleci/node:latest
