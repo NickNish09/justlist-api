@@ -22,7 +22,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: |
-          docker-compose up -d
+          docker-compose up -d &&
           docker exec -ti justlist-api sh -c "yarn test"
 
 # Orchestrate our job run sequence
