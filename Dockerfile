@@ -4,11 +4,11 @@ RUN yarn global add nodemon
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package*.json /usr/src/app
 
 RUN yarn install
 
-COPY . .
+COPY . /usr/src/app
 
 EXPOSE 3000
 
