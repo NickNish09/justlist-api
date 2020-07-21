@@ -23,7 +23,7 @@ jobs:
       - setup_remote_docker
 #      - run: sudo docker build -t justlist-api -f Dockerfile .
       - run: docker-compose up -d
-      - run: docker exec -ti justlist-api /bin/sh -c "yarn test"
+      - run: docker exec -ti justlist-api yarn test
       - run: docker-compose down
 
 # Orchestrate our job run sequence
