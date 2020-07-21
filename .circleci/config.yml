@@ -26,16 +26,17 @@ jobs:
       - image: mongo:latest
     steps:
       - checkout
-      - run: yarn test
+      - run: docker exec -ti justlist-api sh -c "yarn test"
 
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+      - test
+#      - build
+#      - test:
+#          requires:
+#            - build
+#          filters:
+#            branches:
+#              only: master
