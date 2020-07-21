@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/server.ts --ignore tests",
     "build": "sucrase ./src -d ./dist --transforms typescript,imports",
-    "start": "node src/server.ts",
+    "start": "nodemon src/server.ts --ignore tests",
     "test": "jest --testTimeout=10000"
   },
   "license": "MIT",
