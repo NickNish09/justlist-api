@@ -6,7 +6,7 @@ class PagesController {
    async index (req, res) {
     try {
       const pages = await _Page2.default.find()
-      return res.status(200).send({ pages })
+      return res.status(200).send({ paginas: pages })
     } catch (err) {
       console.log(err)
       return res.status(400).send({ error: 'Error at listing page' })
