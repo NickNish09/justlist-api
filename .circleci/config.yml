@@ -15,6 +15,9 @@ jobs:
           name: Install npm wee
           command: yarn install
   test:
+    docker:
+      - image: circleci/node:latest
+      - image: mongo:latest
     steps:
       - checkout
       - setup_remote_docker
