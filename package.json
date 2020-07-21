@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/server.ts --ignore tests",
     "build": "sucrase ./src -d ./dist --transforms typescript,imports",
-    "start": "NODE_ENV=production node dist/server.js --ignore tests",
+    "start": "NODE_ENV=production node dist/server.js",
     "test": "NODE_ENV=test jest --testTimeout=10000"
   },
   "license": "MIT",
