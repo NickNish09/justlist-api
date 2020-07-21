@@ -26,17 +26,18 @@ jobs:
       - image: mongo:latest
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run: docker exec -ti justlist-api sh -c "yarn test"
 
 # Orchestrate our job run sequence
 workflows:
   build_and_test:
     jobs:
-      - test
-#      - build
-#      - test:
-#          requires:
-#            - build
-#          filters:
-#            branches:
-#              only: master
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
