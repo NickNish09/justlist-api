@@ -15,14 +15,14 @@ jobs:
           name: Install npm wee
           command: yarn install
       - run: yarn test
-  test:
-    docker:
-      - image: circleci/node:latest
-      - image: mongo:latest
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - run: yarn test
+#  test:
+#    docker:
+#      - image: circleci/node:latest
+#      - image: mongo:latest
+#    working_directory: ~/repo
+#    steps:
+#      - checkout
+#      - run: yarn test
 #      - run: sudo apt-get install docker-ce docker-ce-cli containerd.io
 #      - run: sudo docker-compose up --build app
 #      - setup_remote_docker
@@ -47,12 +47,12 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+#      - test:
+#          requires:
+#            - build
+#          filters:
+#            branches:
+#              only: master
 #version: 2.1
 #jobs:
 #  build:
