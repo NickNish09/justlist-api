@@ -4,10 +4,10 @@
   "main": "index.js",
   "author": "nicknish09 <nnmarques97@gmail.com>",
   "scripts": {
-    "dev": "nodemon src/server.ts --ignore tests",
+    "dev": "NODE_ENV=development nodemon src/server.ts --ignore tests",
     "build": "sucrase ./src -d ./dist --transforms typescript,imports",
-    "start": "nodemon src/server.ts --ignore tests",
-    "test": "jest --testTimeout=10000"
+    "start": "NODE_ENV=production nodemon src/server.ts --ignore tests",
+    "test": "NODE_ENV=test jest --testTimeout=10000"
   },
   "license": "MIT",
   "devDependencies": {

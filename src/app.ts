@@ -19,7 +19,12 @@ class App {
     }
 
     private database (): void {
-      mongoose.connect('mongodb://mongo:27017/justlist',
+      let mongoUri = 'mongodb://mongo:27017/justlist'
+      if (process.env.NODE_ENV === 'test') {
+        mongoUri = 'mongodb://localhost:27017/justlist' // test db
+      }
+      console.log(mongoUri)
+      mongoose.connect(mongoUri,
         {
           useNewUrlParser: true,
           useUnifiedTopology: true,

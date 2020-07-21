@@ -14,17 +14,33 @@ jobs:
       - run:
           name: Install npm wee
           command: yarn install
+      - run: yarn test
   test:
     docker:
       - image: circleci/node:latest
       - image: mongo:latest
+    working_directory: ~/repo
     steps:
       - checkout
-      - setup_remote_docker
-#      - run: sudo docker build -t justlist-api -f Dockerfile .
-      - run: docker-compose up -d
-      - run: docker exec -ti justlist-api yarn test
-      - run: docker-compose down
+      - run: yarn test
+#      - run: sudo apt-get install docker-ce docker-ce-cli containerd.io
+#      - run: sudo docker-compose up --build app
+#      - setup_remote_docker
+#      - run: sudo docker-compose up --build app
+#      - run:
+#          name: install dockerize
+#          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+#          environment:
+#            DOCKERIZE_VERSION: v0.3.0
+#      - run:
+#          name: Wait for db
+#          command: dockerize -wait tcp://localhost:27017 -timeout 1m
+#      - run:
+#          name: Wait for server
+#          command: dockerize -wait tcp://localhost:3000 -timeout 30s
+#      - run: sudo docker exec -ti justlist-api yarn test
+#      - run: sudo docker exec -ti justlist-api yarn test
+#      - run: sudo docker-compose down
 
 # Orchestrate our job run sequence
 workflows:
