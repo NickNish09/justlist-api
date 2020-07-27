@@ -15,17 +15,9 @@ class PagesController {
 
   public async findOrCreate (req: Request, res: Response): Promise<Response> {
     try {
-      const page = await Page.findOne({ url: req.params.pageUrl }) // find the page content based on url
-      if (page !== null) {
-        console.log('page found')
-        return res.status(200).send({ page })
-      } // if page was found return the page
+      const page = await Page.findOrCreateByUrl(req.params.pageUrl) // find the page content based on url
 
-      console.log('new page')
-      // otherwise create the page and return it
-      const newPage = await Page.create({ url: req.params.pageUrl })
-
-      return res.status(200).send({ page: newPage })
+      return res.status(200).send({ page: page })
     } catch (err) {
       console.log(err)
       return res.status(400).send({ error: 'Error at listing page' })
