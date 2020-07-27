@@ -5,4 +5,8 @@ factory.define('page', Page, {
   url: 'listadecompras'
 })
 
-export const createPage = async (): Promise<PageInterface> => (factory.build('page'))
+export const createPage = async (): Promise<PageInterface> => {
+  const page = await factory.build<PageInterface>('page')
+  await page.save()
+  return page
+}

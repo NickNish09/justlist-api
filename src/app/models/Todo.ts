@@ -39,4 +39,12 @@ TodoSchema.pre<TodoInterface>('validate', async function (next) {
   next()
 })
 
+TodoSchema.post('save', async function (doc: TodoInterface, next) {
+  const page = await Page.findById(doc.page)
+  page!.todos!.push(doc._id)
+  await page!.save()
+
+  next()
+})
+
 export default model<TodoInterface>('Todo', TodoSchema)

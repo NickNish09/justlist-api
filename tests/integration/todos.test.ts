@@ -45,9 +45,8 @@ describe('POST #create', () => {
   })
 
   it('should push the todo to the page it belongs', async () => {
-    // const allPages = await Page.find({})
-    // console.log(allPages)
-    // const pageUpdated = await Page.findById(response.body.todo.page)
-    // expect(pageUpdated!.todos!.length).toEqual(1) // has the new todo in there
+    const pageUpdated = await Page.findById(response.body.todo.page)
+    console.log(pageUpdated)
+    expect(pageUpdated!.todos!.length).toEqual(1) // has the new todo in there
   })
 })
