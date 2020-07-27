@@ -1,6 +1,6 @@
 import { Schema, model, Model, Document } from 'mongoose'
 
-interface PageInterface extends Document{
+export interface PageInterface extends Document{
   url?: string
   pages?: Array<Schema.Types.ObjectId>
   todos?: Array<Schema.Types.ObjectId>

@@ -39,8 +39,10 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "@types/factory-girl": "^5.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "factory-girl": "^5.0.4",
     "mongoose": "^5.9.25"
   }
 }
