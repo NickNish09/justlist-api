@@ -1,11 +1,11 @@
 import request, { Response } from 'supertest'
 import app from '../../src/app'
-import mongoose from 'mongoose'
 import Page, { PageInterface } from '../../src/app/models/Page'
-import Todo from '../../src/app/models/Todo'
+import Todo, { TodoInterface } from '../../src/app/models/Todo'
 import { createPage } from '../../factories/page.factory'
+import { createTodo } from '../../factories/todo.factory'
+import mongoose from 'mongoose'
 
-// reset the db for testing
 beforeAll(async (done) => {
   await Todo.remove({}, function (err) {
     console.log('todos removed')
@@ -17,8 +17,6 @@ beforeAll(async (done) => {
   })
   done()
 })
-
-// close db connection
 afterAll(async (done) => {
   await mongoose.connection.close()
   done()
@@ -48,5 +46,26 @@ describe('POST #create', () => {
     const pageUpdated = await Page.findById(response.body.todo.page)
     console.log(pageUpdated)
     expect(pageUpdated!.todos!.length).toEqual(1) // has the new todo in there
+  })
+})
+
+describe('POST #update', () => {
+  let response: Response
+  let todo: TodoInterface
+  beforeAll(async () => {
+    todo = await createTodo()
+    response = await request(app).put(`/v1/todos/${todo._id}`).send({ content: 'todo editado', isFinished: true })
+  })
+
+  it('should return OK', async () => {
+    expect(response.status).toBe(200)
+  })
+
+  it('should update the todo content', async () => {
+    expect(response.body.todo.content).toEqual('todo editado')
+  })
+
+  it('should update the todo isFinished', async () => {
+    expect(response.body.todo.isFinished).toBeTruthy()
   })
 })

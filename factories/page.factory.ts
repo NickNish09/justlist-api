@@ -5,8 +5,13 @@ factory.define('page', Page, {
   url: 'listadecompras'
 })
 
-export const createPage = async (): Promise<PageInterface> => {
-  const page = await factory.build<PageInterface>('page')
+export const createPage = async (url?: string): Promise<PageInterface> => {
+  let page: PageInterface
+  if (url !== undefined) {
+    page = await factory.build<PageInterface>('page', { url })
+  } else {
+    page = await factory.build<PageInterface>('page')
+  }
   await page.save()
   return page
 }
