@@ -6,7 +6,18 @@ class PagesController {
   public async index (req: Request, res: Response): Promise<Response> {
     try {
       const pages = await Page.find()
-      return res.status(200).send({ main_pages: pages })
+      return res.status(200).send({ pages: pages })
+    } catch (err) {
+      console.log(err)
+      return res.status(400).send({ error: 'Error at listing pages' })
+    }
+  }
+
+  public async findOrCreate (req: Request, res: Response): Promise<Response> {
+    try {
+      const page = await Page.findOrCreateByUrl(req.params.pageUrl) // find or create the page based on url
+
+      return res.status(200).send({ page: page })
     } catch (err) {
       console.log(err)
       return res.status(400).send({ error: 'Error at listing page' })
@@ -17,7 +28,6 @@ class PagesController {
     try {
       const page = await Page.create(req.body)
 
-      console.log(page.uppercaseContent())
       return res.status(200).send({ page })
     } catch (err) {
       console.log(err)
