@@ -40,7 +40,8 @@ PageSchema.methods.uppercaseContent = function (): string {
 
 // static methods
 PageSchema.statics.findOrCreateByUrl = async function (pageUrl: string): Promise<PageInterface> {
-  const page = await this.findOne({ url: pageUrl }) // find the page content based on url
+  const page = await this.findOne({ url: pageUrl }).populate([{ path: 'todos' }])
+  // find the page content based on url
   if (page !== null) {
     console.log('page found')
     return page
@@ -48,7 +49,7 @@ PageSchema.statics.findOrCreateByUrl = async function (pageUrl: string): Promise
 
   console.log('new page')
   // otherwise create the page and return it
-  const newPage = await this.create({ url: pageUrl })
+  const newPage = await this.create({ url: pageUrl }).populate([{ path: 'todos', select: 'isFinished position content _id' }])
   return newPage
 }
 
