@@ -5,6 +5,7 @@ export interface PageInterface extends Document{
   pages?: Array<Schema.Types.ObjectId>
   todos?: Array<Schema.Types.ObjectId>
   uppercaseContent(): string
+  createParents(): Promise<PageInterface>
 }
 
 interface PageModelInterface extends Model<PageInterface> {
@@ -38,6 +39,19 @@ PageSchema.methods.uppercaseContent = function (): string {
   return this.url.toUpperCase()
 }
 
+PageSchema.methods.createParents = async function (): Promise<string> {
+  const parentUrl = '/' + this.url.split('/').filter((el: string) => el !== '').slice(0, -1).join('/')
+  if (parentUrl !== '/') { // if has a parent root is parent
+    const parentPage = await (this.constructor as PageModelInterface).findOrCreateByUrl(parentUrl) // finds or create the parent
+    if (!parentPage!.pages!.includes(this._id)) {
+      parentPage!.pages!.push(this._id) // pushes son into parents pages array
+      await parentPage.save()
+    }
+    await parentPage.createParents() // create the parents to the parent page
+  }
+
+  return ''
+}
 // static methods
 PageSchema.statics.findOrCreateByUrl = async function (pageUrl: string): Promise<PageInterface> {
   const page = await this.findOne({ url: pageUrl }).populate([{ path: 'todos' }])
@@ -50,6 +64,7 @@ PageSchema.statics.findOrCreateByUrl = async function (pageUrl: string): Promise
   console.log('new page')
   // otherwise create the page and return it
   const newPage = await this.create({ url: pageUrl })
+  await newPage.createParents()
   return newPage.populate([{ path: 'todos', select: 'isFinished position content _id' }])
 }
 

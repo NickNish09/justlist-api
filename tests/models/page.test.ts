@@ -37,7 +37,7 @@ afterAll(async (done) => {
 describe('#Page.findOrCreateByUrl', () => {
   describe('with new url', () => {
     test('It should create a new page', async () => {
-      await Page.findOrCreateByUrl('nicholas')
+      await Page.findOrCreateByUrl('/nicholas')
       const pageCount = await Page.count({})
       expect(pageCount).toEqual(1)
     })
@@ -45,9 +45,20 @@ describe('#Page.findOrCreateByUrl', () => {
 
   describe('with an existing url', () => {
     test('It should find the page', async () => {
-      await Page.findOrCreateByUrl('nicholas')
+      await Page.findOrCreateByUrl('/nicholas')
       const pageCount = await Page.count({})
       expect(pageCount).toEqual(1)
+    })
+  })
+
+  describe('with an url with parents', () => {
+    it('should find or create the parents and add current page in its sons', async () => {
+      await Page.findOrCreateByUrl('/nova/compras')
+      const pageCount = await Page.count({})
+      expect(pageCount).toEqual(3)
+      const novaPage = await Page.findOne({ url: '/nova' })
+      expect(novaPage).toBeDefined()
+      expect(novaPage!.pages!.length).toEqual(1)
     })
   })
 })

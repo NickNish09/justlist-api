@@ -5,7 +5,7 @@ import Page from '../models/Page'
 class PagesController {
   public async index (req: Request, res: Response): Promise<Response> {
     try {
-      const pages = await Page.find()
+      const pages = await Page.find().populate([{ path: 'pages', select: 'url' }])
       return res.status(200).send({ pages: pages })
     } catch (err) {
       console.log(err)
