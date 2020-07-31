@@ -2,9 +2,9 @@ import { Schema, model, Document } from 'mongoose'
 import Page from './Page'
 
 export interface TodoInterface extends Document{
-  content?: string
+  content: string
   isFinished?: boolean
-  page?: Schema.Types.ObjectId
+  page: Schema.Types.ObjectId
   position: number
 }
 
