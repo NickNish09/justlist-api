@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import Page from '../../src/app/models/Page'
+import Todo from '../../src/app/models/Todo'
 
 // reset the db for testing
 beforeAll(async (done) => {
@@ -17,6 +18,10 @@ beforeAll(async (done) => {
       console.log(error)
     })
   await Page.remove({}, function (err) {
+    console.log('collection removed')
+    console.log(err)
+  })
+  await Todo.remove({}, function (err) {
     console.log('collection removed')
     console.log(err)
   })

@@ -49,8 +49,8 @@ PageSchema.statics.findOrCreateByUrl = async function (pageUrl: string): Promise
 
   console.log('new page')
   // otherwise create the page and return it
-  const newPage = await this.create({ url: pageUrl }).populate([{ path: 'todos', select: 'isFinished position content _id' }])
-  return newPage
+  const newPage = await this.create({ url: pageUrl })
+  return newPage.populate([{ path: 'todos', select: 'isFinished position content _id' }])
 }
 
 export default model<PageInterface, PageModelInterface>('Page', PageSchema)
