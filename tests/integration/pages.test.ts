@@ -25,14 +25,14 @@ describe('GET #index', () => {
   })
 })
 
-describe('GET #findOrCreate', () => {
+describe('POST #findOrCreate', () => {
   test('It should create a new page if none', async () => {
-    const response = await request(app).get('/v1/pages/newpage')
+    const response = await request(app).post('/v1/pages/findOrCreate').send({ pageUrl: 'newpage' })
     expect(response.body.page.url).toEqual('newpage') // expect response with the new page created
   })
 
   test('It should find a existing page and return it', async () => {
-    const response = await request(app).get('/v1/pages/newpage') // created in above test
+    const response = await request(app).post('/v1/pages/findOrCreate').send({ pageUrl: 'newpage' }) // created in above test
     expect(response.body.page.url).toEqual('newpage') // expect response with the page found
   })
 })
