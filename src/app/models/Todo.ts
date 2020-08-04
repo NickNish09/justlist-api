@@ -5,7 +5,7 @@ export interface TodoInterface extends Document{
   content: string
   isFinished?: boolean
   page: Schema.Types.ObjectId
-  position: number
+  position?: number
 }
 
 const TodoSchema = new Schema({
