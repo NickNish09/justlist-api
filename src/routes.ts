@@ -13,5 +13,6 @@ routes.post(`/${API_VERSION}/pages`, PagesController.create)
 // todos
 routes.post(`/${API_VERSION}/todos`, TodosController.create)
 routes.put(`/${API_VERSION}/todos/:todoId`, TodosController.update)
+routes.delete(`/${API_VERSION}/todos/:todoId`, TodosController.delete)
 
 export default routes
