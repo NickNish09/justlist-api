@@ -51,7 +51,7 @@ class PagesController {
         await Todo.findByIdAndUpdate(indexAndTodoId.todoId, { position: indexAndTodoId.position })
       }
       console.log('emiting pages')
-      const page = await Page.findById(req.params.pageId).populate([{ path: 'todos' }])
+      const page = await Page.findById(req.params.pageId).populate([{ path: 'todos', options: { sort: { position: 1 } } }])
       io.emit(page!._id, { todos: page!.todos })
       return res.status(200).send({ page })
     } catch (err) {
