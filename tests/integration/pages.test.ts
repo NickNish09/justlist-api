@@ -50,7 +50,7 @@ describe('POST #updateTodosOrders', () => {
     for (const todo of todos) {
       todosIds.push((await Todo.create({ page: page._id, content: todo }))._id)
     }
-    const inversedTodoOrder = [[0, todosIds[1]], [1, todosIds, [0]]]
+    const inversedTodoOrder = [{ position: 0, todoId: todosIds[1] }, { position: 1, todoId: todosIds[0] }]
     response = await request(app).post(`/v1/pages/${page._id}/updateTodosOrders`).send({ todosOrder: inversedTodoOrder })
   })
   it('should return the inverted order of todos in the page', async () => {

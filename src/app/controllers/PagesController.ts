@@ -47,7 +47,7 @@ class PagesController {
 
       // indexAndTodoId |-> [position, _id]
       for (const indexAndTodoId of todosOrder) {
-        await Todo.findByIdAndUpdate(indexAndTodoId[1], { position: indexAndTodoId[0] })
+        await Todo.findByIdAndUpdate(indexAndTodoId.todoId, { position: indexAndTodoId.position })
       }
       const page = await Page.findById(req.params.pageId).populate([{ path: 'todos' }])
       return res.status(200).send({ page })
