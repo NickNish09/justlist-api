@@ -54,7 +54,7 @@ PageSchema.methods.createParents = async function (): Promise<string> {
 }
 // static methods
 PageSchema.statics.findOrCreateByUrl = async function (pageUrl: string): Promise<PageInterface> {
-  const page = await this.findOne({ url: pageUrl }).populate([{ path: 'todos' }])
+  const page = await this.findOne({ url: pageUrl }).populate([{ path: 'todos', options: { sort: { position: 1 } } }])
   // find the page content based on url
   if (page !== null) {
     console.log('page found')
