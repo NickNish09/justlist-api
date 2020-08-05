@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 
 import Page from '../models/Page'
 import Todo from '../models/Todo'
+import { io } from '../../server'
 
 class PagesController {
   public async index (req: Request, res: Response): Promise<Response> {
@@ -49,7 +50,9 @@ class PagesController {
       for (const indexAndTodoId of todosOrder) {
         await Todo.findByIdAndUpdate(indexAndTodoId.todoId, { position: indexAndTodoId.position })
       }
-      const page = await Page.findById(req.params.pageId).populate([{ path: 'todos' }])
+      console.log('emiting pages')
+      const page = await Page.findById(req.params.pageId).populate([{ path: 'todos', options: { sort: { position: 1 } } }])
+      io.emit(page!._id, { todos: page!.todos })
       return res.status(200).send({ page })
     } catch (err) {
       console.log(err)

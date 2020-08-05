@@ -46,7 +46,7 @@ describe('POST #updateTodosOrders', () => {
   beforeAll(async () => {
     page = await Page.create({ url: '/listadecompras' })
     todosIds = []
-    const todos = ['comprar pao', 'compra leite']
+    const todos = ['comprar pao', 'comprar leite']
     for (const todo of todos) {
       todosIds.push((await Todo.create({ page: page._id, content: todo }))._id)
     }
@@ -54,8 +54,8 @@ describe('POST #updateTodosOrders', () => {
     response = await request(app).post(`/v1/pages/${page._id}/updateTodosOrders`).send({ todosOrder: inversedTodoOrder })
   })
   it('should return the inverted order of todos in the page', async () => {
-    console.log(response.body)
-    expect(response.body.page.todos[0].position).toEqual(1) // first id should now be the second one previous
-    expect(response.body.page.todos[1].position).toEqual(0)
+    console.log(response.body.page.todos)
+    expect(response.body.page.todos[0].content).toEqual('comprar leite') // first id should now be the second one previous
+    expect(response.body.page.todos[1].content).toEqual('comprar pao')
   })
 })
