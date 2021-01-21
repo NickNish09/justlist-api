@@ -45,6 +45,6 @@
     "express": "^4.17.1",
     "factory-girl": "^5.0.4",
     "mongoose": "^5.9.25",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   }
 }
